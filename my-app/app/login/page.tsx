@@ -36,27 +36,29 @@ export default function LoginPage() {
   // Replace with your actual auth hook
   // const { login, deviceConflict, setDeviceConflict } = useAuthContext();
 
-  // Helper function to get dashboard route based on role
   const getDashboardRoute = (role: string): string => {
     const normalizedRole = role?.toLowerCase();
 
     switch (normalizedRole) {
+      case 'platform_owner':
+        return '/platform-owner/dashboard';
+      case 'partner_manager':
+        return '/partner-manager/dashboard';
       case 'super_admin':
-      case 'superadmin':
-        return '/superadmin/dashboard';
+      case 'firm_owner':
+        return '/super-admin/dashboard';
       case 'admin':
       case 'firm_admin':
-      case 'partner':
         return '/firm-admin/dashboard';
+      case 'advocate':
       case 'lawyer':
-      case 'attorney':
-        return '/lawyer/dashboard';
+        return '/advocate/dashboard';
       case 'paralegal':
         return '/paralegal/dashboard';
-      case 'staff':
-        return '/staff/dashboard';
+      case 'client':
+        return '/client/dashboard';
       default:
-        return '/dashboard';
+        return '/platform-owner/dashboard';
     }
   };
 
@@ -80,7 +82,7 @@ export default function LoginPage() {
 
       // Mock user role - replace with actual user data from your API
       const mockUser = {
-        role: 'lawyer',
+        role: 'platform_owner',
         name: 'John Doe',
       };
 
@@ -125,8 +127,8 @@ export default function LoginPage() {
         <div className="absolute inset-0 z-0 opacity-10">
           <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <pattern id="legal-pattern" patternUnits="userSpaceOnUse" width="20" height="20">
-              <path d="M10 5 L15 10 L10 15 L5 10 Z" fill="none" stroke="white" strokeWidth="0.5"/>
-              <circle cx="10" cy="10" r="1" fill="white"/>
+              <path d="M10 5 L15 10 L10 15 L5 10 Z" fill="none" stroke="white" strokeWidth="0.5" />
+              <circle cx="10" cy="10" r="1" fill="white" />
             </pattern>
             <rect width="100%" height="100%" fill="url(#legal-pattern)" />
           </svg>
@@ -228,7 +230,7 @@ export default function LoginPage() {
           <div className="text-center lg:text-left">
             <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Welcome back</h2>
             <p className="mt-2 text-sm text-slate-500">Sign in to access your law firm dashboard</p>
-          </div>  
+          </div>
 
           {/* Error Message */}
           {error && (
@@ -357,7 +359,7 @@ export default function LoginPage() {
               </motion.button>
             </div>
 
-             <div>
+            <div>
               <motion.button
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.99 }}
